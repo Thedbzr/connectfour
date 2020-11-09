@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background: #DE6262;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #DE6262, #FFB88C);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #DE6262, #FFB88C);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameBoard {
+    justify-content: center;
+    display: grid;
+    text-align: center;
+    grid-template-rows: 10vmin 10vmin 10vmin 10vmin 10vmin 10vmin;
+    grid-template-columns: 10vmin 10vmin 10vmin 10vmin 10vmin 10vmin 10vmin;
+    margin: 0 auto;
+    padding: 4vmin;
+}
+
+.cell {
+    padding: 4.5%;
+    border: 0.5px solid black;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    font-size: 5vmin;
+}
+
+#resetBtn {
+    padding: .7vmin 1vmin .7vmin 1vmin;
+    border-radius: 5px;
+}

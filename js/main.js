@@ -1,8 +1,8 @@
 /*----- constants -----*/
 const PLAYERS = {
-    '1': 'red',
-    '-1': 'yellow',
-    'null': 'white'
+    '1': "url('https://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif')",
+    '-1': "url('https://media.giphy.com/media/G3dFISzqWT8is/giphy.gif')",
+    '0': 'white'
 }
 
 
@@ -13,6 +13,7 @@ const PLAYERS = {
 let gameBoard;
 let winner;
 let turn;
+let convertedArray;
 
 
 /*----- cached element references -----*/
@@ -23,8 +24,8 @@ const resetBtn = document.querySelector('#resetBtn')
 
 
 /*----- event listeners -----*/
-document.getElementById('gameBoard').addEventListener('click',handleClick);
-document.getElementById('resetBtn').addEventListener('click',init);
+document.getElementById('gameBoard').addEventListener('click', handleClick);
+document.getElementById('resetBtn').addEventListener('click', init);
 
 
 
@@ -41,6 +42,7 @@ function init() {
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0]
     ]
+    convertedArray = [].concat(...gameBoard);
     winner = null;
     turn = 1;
     render()
@@ -50,50 +52,42 @@ function render() {
     //button hidden on init
     resetBtn.style.display = 'none';
     //fill grid
-    gameBoard.forEach(function(arr){
-        arr.forEach(function(cell,idx){
-            document.getElementById(idx).style.backgroundImage = cell && PLAYERS[cell];
-        })
-    })
-
-    // let checkTie = function(arr,search){
-
-    //     const nullCell = (element) => element = null;
-    //     return arr.some(row => row.includes(nullCell));
-    // }
-
-   let checkForNull = gameBoard.forEach(function(arr){
-        arr.forEach(function(cell){
-            
-        })
+    convertedArray.forEach(function (element, idx) {
+        document.getElementById(idx).style.backgroundImage = element && PLAYERS[element];
     })
 
     //check for winner using ternary
     //check for tie
     //no one won so change message turn
-    if(winner) {
+    if (winner) {
         message.textContent = `Player ${winner > 0 ? 1 : 2} wins!`
-    } else if (){
-        
+        resetBtn.style.display = null;
+    } else if (!convertedArray.includes(0)) {
+        message.textContent = 'Bummer Its A Tie'
+        resetBtn.style.display = null;
+    } else {
+        message.textContent = `Player ${turn > 0 ? 1 : 2}'s turn!`
     }
 }
 
 
-function handleClick(evt){
+function handleClick(evt) {
     // check if cell has player marker assigned to it
-    if(gameBoard[evt.target.id]) return;
+    if (convertedArray[evt.target.id]) return;
     //if anything but the cell has been clicked do nothing
-    if(evt.target.id === 'gameBoard') return;
+    if (evt.target.id === 'gameBoard') return;
     //cell is not clickable it someone won
-    if(winner) return;
+    if (winner) return;
     //let player to that cell
-    gameBoard[evt.target.id] = turn;
+    convertedArray[evt.target.id] = turn;
     checkForWin();
     //switch turn
     turn *= -1;
     render()
+    console.log(convertedArray);
+    console.log(gameBoard);
 }
 
-function checkForWin(){
-    
+function checkForWin() {
+
 }

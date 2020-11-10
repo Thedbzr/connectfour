@@ -51,25 +51,37 @@ function render() {
     //button hidden on init
     resetBtn.style.display = 'none';
     //fill grid
-    // gameBoard.forEach(function(arr){
-    //     arr.forEach(function(element,idx){
-    //         document.getElementById(idx).style.backgroundImage = element && PLAYERS[element];
-    //     })
-    // })
+    gameBoard.forEach(function(arr,idx1){
+        arr.forEach(function(element,idx2){
+            document.getElementById(`c${idx1}r${idx2}`).style.backgroundImage = element && PLAYERS[element];
+        })
+    })
+
+
+
+
+
     //check for winner using ternary
     //check for tie
     //no one won so change message turn
+    // let openCells = function () {
+    //     gameBoard.forEach(function (arr) {
+    //         arr.includes(0);
+    //     })
+    // }
 
-    let openCells = gameBoard.forEach(function (arr) {
-        for (let i = 0; i < arr.length; i++) {
-            arr.includes(null);
+    let checkForEmpty = function(){
+        for(let i = 0; i < gameBoard.length; i++){
+            for(let j = 0; i < gameBoard[i].length; j++){
+                gameBoard[i][j] === 0 ? true : false
+            }
         }
-    })
+    }
 
     if (winner) {
         message.textContent = `Player ${winner > 0 ? 1 : 2} wins!`
         resetBtn.style.display = null;
-    } else if (openCells) {
+    } else if (!checkForEmpty) {
         message.textContent = 'Bummer Its A Tie'
         resetBtn.style.display = null;
     } else {

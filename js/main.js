@@ -2,7 +2,7 @@
 const PLAYERS = {
     '1': "url('https://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif')",
     '-1': "url('https://media.giphy.com/media/G3dFISzqWT8is/giphy.gif')",
-    '0': 'white'
+    '0': "url('https://media.giphy.com/media/G3dFISzqWT8is/giphy.gif')"
 }
 
 const COL_HEIGHT = 6;
@@ -12,8 +12,8 @@ const ROW_LENGTH = 7;
 let gameBoard;
 let winner;
 let turn;
-let coordinateR;
-let coordinateC;
+let rowIdx;
+let colIdx;
 
 
 /*----- cached element references -----*/
@@ -52,58 +52,19 @@ function render() {
     gameBoard.forEach(function (arr, idx1) {
         arr.forEach(function (element, idx2) {
             document.getElementById(`c${idx1}r${idx2}`).style.backgroundImage = element && PLAYERS[element];
-            //document.getElementById(`c${idx1}r${idx2}`).style.backgroundImage = element && PLAYERS[element];
         })
     })
-
-
-    // let counter1 = 0;
-    // gameBoard.forEach(function (arr, idx) {
-    //     if (counter1 === coordinateC) {
-    //         console.log(gameBoard[coordinateC]);
-    //         for(let i = 0; i < COL_HEIGHT, i++;){
-    //             console.log('check')
-    //         }
-            
-    //     }
-    //     counter1++
-    // })
-
-
-
-
-    // gameBoard.forEach(function(arr,idx1){
-    //     if(idx1 === coordinateC){
-    //         console.log(gameBoard[coordinateC]);
-    //         arr.forEach(function(element,idx){
-                
-    //         })
-            
-    //     }
-    // })
-
-
-
-    // for(let i = 0; i < COL_HEIGHT.length; i++){
-                
-    //     if(i = 0){
-    //         console.log(`${i} cells still have 0`)
-    //     }
-        
-    // }
-
-    // gameBoard[coordinateC].indexOf(0).style.backgroundColor = 'red'
-    // console.log(coordinateC);
-    // console.log('found the column')
 
     //check for winner using ternary
     //check for tie
     //no one won so change message turn
-    // let openCells = function () {
-    //     gameBoard.forEach(function (arr) {
-    //         arr.includes(0);
-    //     })
-    // }
+    let openCells = function () {
+        gameBoard.forEach(function(arr){
+            arr.forEach(function(element){
+
+            })
+        })
+    }
 
     let loop = 0
 
@@ -126,22 +87,12 @@ function handleClick(evt) {
 
     //get coordinate values from event.target.id
     var coordinate = evt.target.id.replace(/\D/g, '');
-    coordinateC = parseInt(coordinate.charAt(0));
-    coordinateR = parseInt(coordinate.charAt(1));
+    colIdx = parseInt(coordinate.charAt(0));
+    rowIdx = parseInt(coordinate.charAt(1));
 
-    //console.log(coordinateC, coordinateR);
-    //loop through gameBoard
-    for (let i = 0; i < gameBoard.length; i++) {
-        //let index1 = i
-        for (let j = 0; j < gameBoard[i].length; j++) {
-            //let index2 = j
-            //if cell is linked to a player then return;
-            if (gameBoard[coordinateC][coordinateR] === 1 || gameBoard[coordinateC][coordinateR] === -1) {
-                console.log('nope thats taken')
-                return;
-            }
-        }
-    }
+    //set tokens to stack
+    const colArr = gameBoard[colIdx];
+    rowIdx = colArr.indexOf(0);
 
     //cell is not clickable it someone won
     if (winner) return;
@@ -153,8 +104,8 @@ function handleClick(evt) {
         for (let j = 0; j < gameBoard[i].length; j++) {
             let index2 = j
             //link player to that cell
-            if (gameBoard[coordinateC][coordinateR] == 0) {
-                gameBoard[coordinateC][coordinateR] = turn;
+            if (gameBoard[colIdx][rowIdx] == 0) {
+                gameBoard[colIdx][rowIdx] = turn;
             }
         }
     }

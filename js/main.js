@@ -5,14 +5,15 @@ const PLAYERS = {
     '0': 'white'
 }
 
-
-
+const COL_HEIGHT = 6;
+const ROW_LENGTH = 7;
 
 /*----- app's state (variables) -----*/
 let gameBoard;
 let winner;
 let turn;
-
+let coordinateR;
+let coordinateC;
 
 
 /*----- cached element references -----*/
@@ -21,12 +22,9 @@ const message = document.querySelector('#message')
 const resetBtn = document.querySelector('#resetBtn')
 
 
-
 /*----- event listeners -----*/
 document.getElementById('gameBoard').addEventListener('click', handleClick);
 document.getElementById('resetBtn').addEventListener('click', init);
-
-
 
 
 /*----- functions -----*/
@@ -51,15 +49,52 @@ function render() {
     //button hidden on init
     resetBtn.style.display = 'none';
     //fill grid
-    gameBoard.forEach(function(arr,idx1){
-        arr.forEach(function(element,idx2){
+    gameBoard.forEach(function (arr, idx1) {
+        arr.forEach(function (element, idx2) {
             document.getElementById(`c${idx1}r${idx2}`).style.backgroundImage = element && PLAYERS[element];
+            //document.getElementById(`c${idx1}r${idx2}`).style.backgroundImage = element && PLAYERS[element];
         })
     })
 
 
+    // let counter1 = 0;
+    // gameBoard.forEach(function (arr, idx) {
+    //     if (counter1 === coordinateC) {
+    //         console.log(gameBoard[coordinateC]);
+    //         for(let i = 0; i < COL_HEIGHT, i++;){
+    //             console.log('check')
+    //         }
+            
+    //     }
+    //     counter1++
+    // })
 
 
+
+
+    // gameBoard.forEach(function(arr,idx1){
+    //     if(idx1 === coordinateC){
+    //         console.log(gameBoard[coordinateC]);
+    //         arr.forEach(function(element,idx){
+                
+    //         })
+            
+    //     }
+    // })
+
+
+
+    // for(let i = 0; i < COL_HEIGHT.length; i++){
+                
+    //     if(i = 0){
+    //         console.log(`${i} cells still have 0`)
+    //     }
+        
+    // }
+
+    // gameBoard[coordinateC].indexOf(0).style.backgroundColor = 'red'
+    // console.log(coordinateC);
+    // console.log('found the column')
 
     //check for winner using ternary
     //check for tie
@@ -70,18 +105,12 @@ function render() {
     //     })
     // }
 
-    let checkForEmpty = function(){
-        for(let i = 0; i < gameBoard.length; i++){
-            for(let j = 0; i < gameBoard[i].length; j++){
-                gameBoard[i][j] === 0 ? true : false
-            }
-        }
-    }
+    let loop = 0
 
     if (winner) {
         message.textContent = `Player ${winner > 0 ? 1 : 2} wins!`
         resetBtn.style.display = null;
-    } else if (!checkForEmpty) {
+    } else if (loop) {
         message.textContent = 'Bummer Its A Tie'
         resetBtn.style.display = null;
     } else {
@@ -90,21 +119,22 @@ function render() {
 }
 
 
+
 function handleClick(evt) {
     //if anything but the cell has been clicked do nothing
     if (evt.target.id === 'gameBoard') return;
 
     //get coordinate values from event.target.id
     var coordinate = evt.target.id.replace(/\D/g, '');
-    let coordinateC = parseInt(coordinate.charAt(0));
-    let coordinateR = parseInt(coordinate.charAt(1));
+    coordinateC = parseInt(coordinate.charAt(0));
+    coordinateR = parseInt(coordinate.charAt(1));
 
-    console.log(coordinateC, coordinateR);
+    //console.log(coordinateC, coordinateR);
     //loop through gameBoard
     for (let i = 0; i < gameBoard.length; i++) {
-        let index1 = i
+        //let index1 = i
         for (let j = 0; j < gameBoard[i].length; j++) {
-            let index2 = j
+            //let index2 = j
             //if cell is linked to a player then return;
             if (gameBoard[coordinateC][coordinateR] === 1 || gameBoard[coordinateC][coordinateR] === -1) {
                 console.log('nope thats taken')
@@ -112,8 +142,6 @@ function handleClick(evt) {
             }
         }
     }
-
-
 
     //cell is not clickable it someone won
     if (winner) return;
@@ -135,40 +163,8 @@ function handleClick(evt) {
     //switch turn
     turn *= -1;
     render()
-    // console.log(evt.target);
 }
 
 function checkForWin() {
 
 }
-
-
-let checkCell = function () {
-
-}
-
-let updateCell = function (evt) {
-
-
-}
-updateCell();
-
-
-
-
-
-
-// gameBoard.forEach(function(arr){
-//     let index = arr.findIndex(element => element === evt.target)
-//     console.log(index);
-//  })
-
- // let checkArray = function(){
-    //     gameBoard.some(function(arr,idx){
-    //        if(arr.includes([[coordinateC][coordinateR]])){
-    //            gameBoard[[coordinateC][coordinateR]] = turn;
-    //            console.log('worked?')
-    //        };
-    //     })
-    // }
-    // checkArray();

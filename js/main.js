@@ -5,7 +5,7 @@ const PLAYERS = {
     '0': 'white'
 }
 
-
+const LENGTH = 7;
 
 
 
@@ -85,9 +85,64 @@ function handleClick(evt) {
     turn *= -1;
     render()
     console.log(convertedArray);
-    console.log(gameBoard);
+    console.log(evt.target.id%7);
+
 }
 
 function checkForWin() {
-
+    
 }
+
+
+let column0 = [];
+let column1 = [];
+let column2 = [];
+let column3 = [];
+let column4 = [];
+let column5 = [];
+let column6 = [];
+let column7 = [];
+
+let columnCells = function(){
+    for(let i = 0; i < convertedArray.length; i++){
+        if([i] % 7 == 0){
+            columns.push([i]);
+        }
+        if([i] % 7 == 0){
+            columns.push([i]);
+        }
+
+    }
+}
+
+columnCells()
+console.log(columns);
+
+
+
+// let columnCells = convertedArray.filter(el => el.length % 7 == 0);
+
+// console.log(columnCells);
+
+
+// let getColumns= function(){
+//     for(let i = 0; i < convertedArray.length; i++){
+//         if(convertedArray[i] % 7 == 0) {
+//             columnCells.push([i])
+//         }
+//     }
+// }
+
+
+
+// let checkV = convertedArray.filter(function(cell){
+//     return cell.id % 1;
+// })
+// console.log(checkV);
+
+
+// let checkVertically = convertedArray.filter(function(cell){
+//     console.log(cell);
+//     return cell.id % LENGTH ===  0;
+// })
+// console.log(checkVertically);

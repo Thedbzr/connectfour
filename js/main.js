@@ -79,37 +79,51 @@ function render() {
 
 
 function handleClick(evt) {
-    // check if cell has player marker assigned to it
-    //if (gameBoard[[evt.target.id]]) return;
     //if anything but the cell has been clicked do nothing
     if (evt.target.id === 'gameBoard') return;
-    //cell is not clickable it someone won
-    if (winner) return;
-    //link player to that cell
-    
-    var coordinate = evt.target.id.replace(/\D/g,'');
+
+    //get coordinate values from event.target.id
+    var coordinate = evt.target.id.replace(/\D/g, '');
     let coordinateC = parseInt(coordinate.charAt(0));
     let coordinateR = parseInt(coordinate.charAt(1));
-    
-    console.log(coordinateC,coordinateR);
 
-    for(let i = 0; i < gameBoard.length; i++){
+    console.log(coordinateC, coordinateR);
+    //loop through gameBoard
+    for (let i = 0; i < gameBoard.length; i++) {
         let index1 = i
-        for(let j = 0; j < gameBoard[i].length; j++){
+        for (let j = 0; j < gameBoard[i].length; j++) {
             let index2 = j
-            if(gameBoard[coordinateC][coordinateR] == 0){
-                gameBoard[coordinateC][coordinateR] = turn;
-            } else {
-               console.log(false);
+            //if cell is linked to a player then return;
+            if (gameBoard[coordinateC][coordinateR] === 1 || gameBoard[coordinateC][coordinateR] === -1) {
+                console.log('nope thats taken')
+                return;
             }
         }
     }
-    
+
+
+
+    //cell is not clickable it someone won
+    if (winner) return;
+
+
+    //loop through gameBoard
+    for (let i = 0; i < gameBoard.length; i++) {
+        let index1 = i
+        for (let j = 0; j < gameBoard[i].length; j++) {
+            let index2 = j
+            //link player to that cell
+            if (gameBoard[coordinateC][coordinateR] == 0) {
+                gameBoard[coordinateC][coordinateR] = turn;
+            }
+        }
+    }
+
     checkForWin();
     //switch turn
     turn *= -1;
     render()
-   // console.log(evt.target);
+    // console.log(evt.target);
 }
 
 function checkForWin() {

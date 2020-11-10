@@ -55,7 +55,6 @@ function render() {
     convertedArray.forEach(function (element, idx) {
         document.getElementById(idx).style.backgroundImage = element && PLAYERS[element];
     })
-
     //check for winner using ternary
     //check for tie
     //no one won so change message turn
@@ -94,29 +93,28 @@ function checkForWin() {
 }
 
 
-let column0 = [];
-let column1 = [];
-let column2 = [];
-let column3 = [];
-let column4 = [];
-let column5 = [];
-let column6 = [];
-let column7 = [];
+// let column0 = [];
+// let column1 = [];
+// let column2 = [];
+// let column3 = [];
+// let column4 = [];
+// let column5 = [];
+// let column6 = [];
+// let column7 = [];
 
-let columnCells = function(){
-    for(let i = 0; i < convertedArray.length; i++){
-        if([i] % 7 == 0){
-            columns.push([i]);
-        }
-        if([i] % 7 == 0){
-            columns.push([i]);
-        }
+// let counter = 0;
 
-    }
-}
+// let columnCells = function(){
+//     for(let i = 0; i < convertedArray.length; i++){
+//         if([i] % 7 == 0){
+//             column0.push(i);
+//         }
 
-columnCells()
-console.log(columns);
+//     }
+// }
+
+// columnCells()
+// console.log(column0);
 
 
 

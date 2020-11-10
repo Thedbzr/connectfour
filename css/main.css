@@ -17,18 +17,21 @@ body {
     justify-content: center;
     display: grid;
     text-align: center;
-    grid-template-rows: 10vmin 10vmin 10vmin 10vmin 10vmin 10vmin;
-    grid-template-columns: 10vmin 10vmin 10vmin 10vmin 10vmin 10vmin 10vmin;
-    margin: 0 auto;
-    padding: 4vmin;
-}
+    grid-template-rows: 11.5vmin 11.5vmin 11.5vmin 11.5vmin 11.5vmin 11.5vmin;
+    grid-template-columns: 11.5vmin 11.5vmin 11.5vmin 11.5vmin 11.5vmin 11.5vmin 11.5vmin;
+    padding: 2vmin;
+    border: lightblue 2vmin solid;
+    background-color: darkblue;
+} 
 
 .cell {
+    border-radius: 50%;
     padding: 4.5%;
     border: 0.5px solid black;
     background-size: cover;
     background-position: center;
     background-color: white;
+    margin: .6vmin;
 }
 
 header {
@@ -40,4 +43,7 @@ header {
 #resetBtn {
     padding: .7vmin 1vmin .7vmin 1vmin;
     border-radius: 5px;
+}
+#message {
+    margin-bottom: 3vmin;
 }

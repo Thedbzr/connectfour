@@ -94,6 +94,10 @@ function handleClick(evt) {
     const colArr = gameBoard[colIdx];
     rowIdx = colArr.indexOf(0);
 
+
+    if(rowIdx == -1) return;
+    console.log(rowIdx);
+
     //cell is not clickable it someone won
     if (winner) return;
 

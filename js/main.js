@@ -2,11 +2,8 @@
 const PLAYERS = {
     '1': "url('https://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif')",
     '-1': "url('https://media.giphy.com/media/G3dFISzqWT8is/giphy.gif')",
-    '0': "url('https://media.giphy.com/media/G3dFISzqWT8is/giphy.gif')"
+    '0': "url('')"
 }
-
-const COL_HEIGHT = 6;
-const ROW_LENGTH = 7;
 
 /*----- app's state (variables) -----*/
 let gameBoard;
@@ -44,6 +41,9 @@ function init() {
     ]
     winner = null;
     turn = 1;
+    for (i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundImage = PLAYERS['0'];
+    }
     render()
 }
 
@@ -60,20 +60,27 @@ function render() {
     //check for winner using ternary
     //check for tie
     //no one won so change message turn
-    let openCells = function () {
-        gameBoard.forEach(function (arr) {
-            arr.forEach(function (element) {
 
-            })
+
+    let openCells = function () {
+        let counter = 0;
+        gameBoard.forEach(function (arr) {
+            if (arr.includes(0)) {
+                openCells = true
+            } else if (counter == 6) {
+                console.log('its a tie')
+                openCells = false
+             } else {
+                counter += 1
+            }
         })
     }
-
-    let loop = 0
+    openCells()
 
     if (winner) {
         message.textContent = `Player ${winner > 0 ? 1 : 2} wins!`
         resetBtn.style.display = null;
-    } else if (loop) {
+    } else if (!openCells) {
         message.textContent = 'Bummer Its A Tie'
         resetBtn.style.display = null;
     } else {
@@ -93,8 +100,8 @@ function handleClick(evt) {
     rowIdx = parseInt(coordinate.charAt(1));
     //set tokens to stack
     const colArr = gameBoard[colIdx];
-    console.log(rowIdx);
-    
+    //console.log(rowIdx);
+
 
     colStack = colArr.indexOf(0);
     if (colStack == -1) return;
@@ -114,19 +121,13 @@ function handleClick(evt) {
         }
     }
 
-    checkForWin();
-    checkCoulmns(colArr);
-    checkRows(rowIdx)
+    checkForWin(colArr, rowIdx);
     //switch turn
     turn *= -1;
     render()
 }
 
-function checkForWin() {
-
-}
-
-function checkCoulmns(colArr) {
+function checkColumns(colArr) {
     for (let i = 0; i < 3; i++) {
         //loop through column that was clicked    
         //check 4 cells at a time
@@ -140,15 +141,23 @@ function checkCoulmns(colArr) {
 function checkRows(rowIdx) {
     for (let i = 0; i < 4; i++) {
         // console.log(gameBoard[i][rowIdx]);
-        // console.log(gameBoard[i+1][rowIdx]);
-        // console.log(gameBoard[i+2][rowIdx]);
-        // console.log(gameBoard[i+3][rowIdx]);
+        // console.log(gameBoard[i + 1][rowIdx]);
+        // console.log(gameBoard[i + 2][rowIdx]);
+        // console.log(gameBoard[i + 3][rowIdx]);
         // console.log('-------end----------');
 
-        if ( gameBoard[i][rowIdx] !== 0 && gameBoard[i][rowIdx] == gameBoard[i + 1][rowIdx] && gameBoard[i][rowIdx] == gameBoard[i + 2][rowIdx] &&   gameBoard[i][rowIdx] == gameBoard[i + 3][rowIdx]) {
+        if (gameBoard[i][rowIdx] !== 0 && gameBoard[i][rowIdx] == gameBoard[i + 1][rowIdx] && gameBoard[i][rowIdx] == gameBoard[i + 2][rowIdx] && gameBoard[i][rowIdx] == gameBoard[i + 3][rowIdx]) {
             winner = turn;
             console.log('row win')
         }
     }
 }
 
+function checkDiagonal() {
+
+}
+
+function checkForWin(colArr, rowIdx) {
+    checkColumns(colArr);
+    checkRows(rowIdx);
+}

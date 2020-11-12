@@ -48,3 +48,6 @@ header {
     margin-bottom: 3vmin;
     margin-top: 2.5vmin;
 }
+.clear {
+    background-image: none;
+}

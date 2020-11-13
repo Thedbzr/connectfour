@@ -20,7 +20,8 @@ ___
 - JAVASCRIPT
 ---
 # GETTING STARTED
-[CLICK ME TO PLAY](https://thedbzr.github.io/connectfour/)
+<a href="https://thedbzr.github.io/connectfour/" target="_blank">CLICK ME TO PLAY</a>
+
 ## Win Conditions
 * Connect Four Vertically
 * Connect Four Horizontally

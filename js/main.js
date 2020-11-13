@@ -60,17 +60,14 @@ function render() {
     //check for winner using ternary
     //check for tie
     //no one won so change message turn
-
-
     let openCells = function () {
         let counter = 0;
         gameBoard.forEach(function (arr) {
             if (arr.includes(0)) {
                 openCells = true
             } else if (counter == 6) {
-                console.log('its a tie')
                 openCells = false
-             } else {
+            } else {
                 counter += 1
             }
         })
@@ -88,9 +85,8 @@ function render() {
     }
 }
 
-
-
 function handleClick(evt) {
+
     //if anything but the cell has been clicked do nothing
     if (evt.target.id === 'gameBoard') return;
 
@@ -98,18 +94,15 @@ function handleClick(evt) {
     var coordinate = evt.target.id.replace(/\D/g, '');
     colIdx = parseInt(coordinate.charAt(0));
     rowIdx = parseInt(coordinate.charAt(1));
+
     //set tokens to stack
     const colArr = gameBoard[colIdx];
-    //console.log(rowIdx);
-
 
     colStack = colArr.indexOf(0);
     if (colStack == -1) return;
 
-
     //cell is not clickable it someone won
     if (winner) return;
-
 
     //loop through gameBoard
     for (let i = 0; i < gameBoard.length; i++) {
@@ -127,37 +120,47 @@ function handleClick(evt) {
     render()
 }
 
+function checkDiagonalDownRight() {
+    gameBoard.forEach((arr, colIdx) => {
+        arr.forEach((value, rowIdx) => {
+            if (gameBoard[colIdx + 3] && gameBoard[colIdx][rowIdx - 3] && Math.abs(gameBoard[colIdx][rowIdx] + gameBoard[colIdx + 1][rowIdx - 1] + gameBoard[colIdx + 2][rowIdx - 2] + gameBoard[colIdx + 3][rowIdx - 3]) == 4) {
+                winner = turn;
+            }
+        })
+    })
+}
+
+function checkDiagonalDownLeft() {
+    gameBoard.forEach((arr, colIdx) => {
+        arr.forEach((value, rowIdx) => {
+            if (gameBoard[colIdx - 3] && gameBoard[colIdx][rowIdx - 3] && Math.abs(gameBoard[colIdx][rowIdx] + gameBoard[colIdx - 1][rowIdx - 1] + gameBoard[colIdx - 2][rowIdx - 2] + gameBoard[colIdx - 3][rowIdx - 3]) == 4) {
+                winner = turn;
+            }
+        })
+    })
+}
+
 function checkColumns(colArr) {
     for (let i = 0; i < 3; i++) {
         //loop through column that was clicked    
         //check 4 cells at a time
         if (colArr[i] !== 0 && colArr[i] == colArr[i + 1] && colArr[i] == colArr[i + 2] && colArr[i] == colArr[i + 3]) {
             winner = turn;
-            //console.log(`winner is ${turn}`)
         }
     }
 }
 
 function checkRows(rowIdx) {
     for (let i = 0; i < 4; i++) {
-        // console.log(gameBoard[i][rowIdx]);
-        // console.log(gameBoard[i + 1][rowIdx]);
-        // console.log(gameBoard[i + 2][rowIdx]);
-        // console.log(gameBoard[i + 3][rowIdx]);
-        // console.log('-------end----------');
-
         if (gameBoard[i][rowIdx] !== 0 && gameBoard[i][rowIdx] == gameBoard[i + 1][rowIdx] && gameBoard[i][rowIdx] == gameBoard[i + 2][rowIdx] && gameBoard[i][rowIdx] == gameBoard[i + 3][rowIdx]) {
             winner = turn;
-            console.log('row win')
         }
     }
-}
-
-function checkDiagonal() {
-
 }
 
 function checkForWin(colArr, rowIdx) {
     checkColumns(colArr);
     checkRows(rowIdx);
+    checkDiagonalDownRight();
+    checkDiagonalDownLeft()
 }
